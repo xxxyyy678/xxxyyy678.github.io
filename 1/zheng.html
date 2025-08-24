@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你想我了吗？</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+
+        img {
+            max-width: 80%;
+            max-height: 60vh;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .question {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #yesBtn {
+            background-color: #f1aeed82;
+            color: white;
+        }
+
+        #noBtn {
+            background-color: #d0fcfb;
+            color: #333;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .enlarged {
+            transform: scale(1.5);
+            background-color: #ffcccc;
+            padding: 15px 30px;
+        }
+
+        .shrunk {
+            transform: scale(0.7);
+        }
+    </style>
+</head>
+<body>
+    <img id="mainImg" src="image/img1.jpg" alt="爱情图片">
+
+    <div class="question">郑宝，你想我了吗？</div>
+
+    <div class="buttons">
+        <button id="yesBtn">好想好想</button>
+        <button id="noBtn">一点也不想</button>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn   = document.getElementById('noBtn');
+    
+        // 保存初始文字
+        const yesText = yesBtn.textContent;
+        const noText  = noBtn.textContent;
+    
+        let noClickCount = 0;
+    
+        yesBtn.addEventListener('click', function () {
+        
+            alert('我爱你宝贝！');
+            
+            // 复原
+            resetButtons();
+        });
+    
+        noBtn.addEventListener('click', function () {
+            /* 第一次点“右边”按钮：换图 */
+            document.getElementById('mainImg').src = 'image/img2.jpg';
+            noClickCount++;
+            
+            if (noClickCount === 1) {
+                noBtn.textContent = '真的吗？你忍心嘛';
+                yesBtn.style.transform = 'scale(1.2)';
+                noBtn.style.transform = 'scale(0.8)';
+            } else if (noClickCount === 2) {
+                noBtn.textContent = '不再想想吗';
+                yesBtn.style.transform = 'scale(1.4)';
+                noBtn.style.transform = 'scale(0.6)';
+            }else if (noClickCount === 3) {
+                noBtn.textContent = '再点就要哭哭捏';
+                yesBtn.style.transform = 'scale(1.6)';
+                noBtn.style.transform = 'scale(0.4)';
+            }else if (noClickCount >= 4) {
+                noBtn.textContent = '哼哼，你居然还点，我讨厌你！！！';
+                yesBtn.style.transform = 'scale(1.8)';
+                noBtn.style.transform = 'scale(0.2)';
+            }
+        });
+    
+        function resetButtons() {
+            // 计数器归零
+            noClickCount = 0;
+            /* 恢复图片 */
+            document.getElementById('mainImg').src = 'image/img1.jpg';
+            // 文字恢复
+            yesBtn.textContent = yesText;
+            noBtn.textContent  = noText;
+    
+            // 样式恢复
+            yesBtn.style.transform = 'scale(1)';
+            noBtn.style.transform = 'scale(1)';
+            //noBtn.style.transform = '';
+        }
+    </script>
+</body>
+</html>
